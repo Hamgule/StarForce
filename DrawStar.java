@@ -5,36 +5,29 @@ import java.awt.geom.*;
 
 public class DrawStar extends JPanel {
     private final double starRadius = 10;
-    private double starPositionX;
-    private double starPositionY;
+    private double starX;
+    private double starY;
 
-    public DrawStar() {
-        starPositionX = 0.0;
-        starPositionY = 0.0;
-    }
-
-    public DrawStar(double x, double y) {
-        starPositionX = x;
-        starPositionY = y;
-    }
-
-    public void replaceStar(double x, double y) {
-        starPositionX = x;
-        starPositionY = y;
-    }
+    public DrawStar() { starX = 0.0; starY = 0.0; setOpaque(false); }
+    public DrawStar(double x, double y) { starX = x; starY = y; setOpaque(false); }
 
     @Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        g.setColor(Color.YELLOW);
+        g.fill(createDefaultStar(starRadius, starX, starY));
 
-        g.setColor(Color.BLACK);
-        g.draw(createDefaultStar(starRadius, starPositionX, starPositionY));
-
+        g.setStroke(new BasicStroke(2));
+        g.setPaint(Color.BLACK);
+        g.draw(createDefaultStar(starRadius, starX, starY));
+        
     }
+
+    public void starSetLocation(double x, double y) { starX = x; starY = y; }
 
     private static Shape createDefaultStar(double radius, double centerX, double centerY) {
         return createStar(centerX, centerY, radius * 1.4, radius * 2.63, 5, Math.toRadians(-18));
