@@ -63,6 +63,7 @@ public class StarCatch extends JFrame implements ActionListener {
 
         countLabel.setLocation((int) buttonWidth, (int) ((fieldY - buttonWidth) / 2)); // (167, 94)
         countLabel.setSize((int) buttonWidth, (int) buttonWidth); // (167, 167)
+        countLabel.setHorizontalAlignment(JLabel.CENTER);
         countLabel.setFont(new Font("Arial", Font.PLAIN, 50));
 
         add(countLabel);
@@ -77,7 +78,10 @@ public class StarCatch extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         repaint();
         
-        if (countdown < 0) starStop();
+        if (countdown < 0) {
+            stopStar();
+            star.removeStar();
+        }
 
         if (starX < starRadius * 2.5 || starX > canvasWidth - starRadius * 2.5) {
             starDirection *= -1;
@@ -85,14 +89,15 @@ public class StarCatch extends JFrame implements ActionListener {
             countLabel.setText("" + countdown);
         }
         starX += starSpeed * starDirection;
-        star.starSetLocation(starX, starY);
+        star.setStarLocation(starX, starY);
         
         if (e.getSource().equals(stopButton)) { 
-            starStop();
+            stopStar();
+            star.removeStar();
         }
     }
 
-    public void starStop() { starSpeed = 0; }
+    public void stopStar() { starSpeed = 0; }
 
     public static double getCanvasWidth() { return canvasWidth; }
     public static double getCanvasHeight() { return canvasHeight; }

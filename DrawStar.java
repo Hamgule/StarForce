@@ -27,7 +27,8 @@ public class DrawStar extends JPanel {
         
     }
 
-    public void starSetLocation(double x, double y) { starX = x; starY = y; }
+    public void setStarLocation(double x, double y) { starX = x; starY = y; }
+    public void removeStar() { setVisible(false); }
 
     private static Shape createDefaultStar(double radius, double centerX, double centerY) {
         return createStar(centerX, centerY, radius * 1.4, radius * 2.63, 5, Math.toRadians(-18));
